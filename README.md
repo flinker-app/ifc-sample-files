@@ -6,6 +6,10 @@
 - https://github.com/bimdata/BIMData-Research-and-Development/blob/master/pages/IFC_FILES.md
 
 ### advanced_sample_project
+From https://github.com/Xeraoo/ifc_hello_world/blob/master/IFC_files/rac_advanced_sample_project.ifc
 * [rac_advanced_sample_project.ifc](https://github.com/Xeraoo/ifc_hello_world/blob/master/IFC_files/rac_advanced_sample_project.ifc)
 * [rme_advanced_sample_project.ifc](https://github.com/Xeraoo/ifc_hello_world/blob/master/IFC_files/rme_advanced_sample_project.ifc)
 * [rst_advanced_sample_project.ifc](https://github.com/Xeraoo/ifc_hello_world/blob/master/IFC_files/rst_advanced_sample_project.ifc)
+
+### Snowdon Towers
+https://github.com/digitalbuilderben/ai-bim-vibe/tree/main/models
