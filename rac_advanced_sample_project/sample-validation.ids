@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Sample BIM Validation Requirements</title>
+    <copyright>Flinker 2026</copyright>
+    <version>1.0</version>
+    <description>Demonstrates IDS validation with various pass/fail scenarios. Checks naming conventions, fire ratings, thermal properties, and classifications.</description>
+    <author>demo@flinker.app</author>
+    <date>2026-01-25</date>
+    <purpose>Quality Assurance</purpose>
+  </info>
+  <specifications>
+
+    <!-- Spec 1: All walls must have a Name (should mostly PASS) -->
+    <specification name="Walls must be named" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>All wall elements must have a Name attribute for identification.</description>
+      <instructions>Ensure every wall has a descriptive name in your BIM authoring tool.</instructions>
+      <applicability minOccurs="1" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCWALL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute cardinality="required">
+          <name>
+            <simpleValue>Name</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Spec 2: All doors must have FireRating (should mostly FAIL) -->
+    <specification name="Doors require Fire Rating" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>All doors must specify their fire resistance rating for safety compliance.</description>
+      <instructions>Add FireRating property to Pset_DoorCommon for each door element.</instructions>
+      <applicability minOccurs="1" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCDOOR</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property cardinality="required" dataType="IFCLABEL">
+          <propertySet>
+            <simpleValue>Pset_DoorCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>FireRating</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Spec 3: Windows need thermal transmittance (should mostly FAIL) -->
+    <specification name="Windows require Thermal Transmittance" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>Windows must have thermal transmittance (U-value) for energy analysis.</description>
+      <instructions>Add ThermalTransmittance property to Pset_WindowCommon.</instructions>
+      <applicability minOccurs="1" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOW</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property cardinality="required" dataType="IFCTHERMALTRANSMITTANCEMEASURE">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalTransmittance</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Spec 4: Columns must have Description (should mostly PASS) -->
+    <specification name="Columns must have description" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>Structural columns should have a description attribute.</description>
+      <instructions>Add a Description to each column element.</instructions>
+      <applicability minOccurs="0" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCCOLUMN</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute cardinality="required">
+          <name>
+            <simpleValue>Description</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Spec 5: Spaces must have Name (should PASS) -->
+    <specification name="Spaces must be named" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>All spaces/rooms must have a Name for room scheduling.</description>
+      <instructions>Ensure all spaces have a room name assigned.</instructions>
+      <applicability minOccurs="0" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute cardinality="required">
+          <name>
+            <simpleValue>Name</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Spec 6: Slabs must have LoadBearing property (should mostly FAIL) -->
+    <specification name="Slabs require LoadBearing info" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>Floor slabs must indicate if they are load-bearing.</description>
+      <instructions>Add LoadBearing property to Pset_SlabCommon.</instructions>
+      <applicability minOccurs="0" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCSLAB</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property cardinality="required" dataType="IFCBOOLEAN">
+          <propertySet>
+            <simpleValue>Pset_SlabCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>LoadBearing</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Spec 7: Walls must have material (should mostly PASS) -->
+    <specification name="Walls must have material assigned" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>All walls must have a material assignment for quantity takeoff.</description>
+      <instructions>Assign materials to all wall elements in your BIM tool.</instructions>
+      <applicability minOccurs="1" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCWALL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <material cardinality="required"/>
+      </requirements>
+    </specification>
+
+    <!-- Spec 8: Beams need ObjectType (mixed results) -->
+    <specification name="Beams must have ObjectType" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2">
+      <description>Structural beams should specify their ObjectType for classification.</description>
+      <instructions>Set the ObjectType attribute on beam elements.</instructions>
+      <applicability minOccurs="0" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCBEAM</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute cardinality="required">
+          <name>
+            <simpleValue>ObjectType</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>
